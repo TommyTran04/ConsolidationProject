@@ -22,4 +22,25 @@ class Card: #This serves as the main identifier for cards of all types EXCEPT Ki
         }
         return rank_values[self.rank]
 
+
+class Deck: #This serves as the deck on hand that YOU the player will have.
+    def __init__(self):
+        suits = ['Hearts', 'Diamonds', 'Clubs', 'Spades']
+        ranks = ['Ace', '2', '3', '4', '5', '6', '7', '8', '9', '10', 'Jack', 'Queen']
+        self.cards = [Card(suit, rank) for suit in suits for rank in ranks]
+        self.discard_pile = []
+
+    def shuffle(self):
+        random.shuffle(self.cards)
+
+    def deal(self, count: int) -> List[Card]:
+        return [self.cards.pop() for _ in range(min(count, len(self.cards)))]
+
+    def reveal_card(self) -> Optional[Card]:
+        if self.cards:
+            card = self.cards.pop()
+            self.discard_pile.append(card)
+            return card
+        return None
+
     

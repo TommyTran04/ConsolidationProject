@@ -42,4 +42,10 @@ class Deck: #This serves as the deck on hand that YOU the player will have.
 class AIStrategy(Protocol): #This serves as a fimction that the AI uses in order to win/lose rounds
     def choose_card(self, hand: List[Card], lead_suit: Optional[str]) -> Card:
         ...
-    
+
+class BasicStrategy:
+    def choose_card(self, hand: List[Card], lead_suit: Optional[str]) -> Card:
+        suit_cards = [card for card in hand if card.suit == lead_suit] if lead_suit else []
+        if suit_cards:
+            return min(suit_cards, key=lambda c: c.value)
+        return random.choice(hand)

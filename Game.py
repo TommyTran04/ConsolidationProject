@@ -1,6 +1,7 @@
 import os
 import json #this is for saving purposes
 import random # this is randomly drawing cards and such
+from typing import List, Dict, Optional, Protocol #Will NEED these imports, for lists, dictionaries, protocols.
 
 class Card: #This serves as the main identifier for cards of all types EXCEPT King cards
     def __init__(self, suit: str, rank: str):
@@ -38,5 +39,7 @@ class Deck: #This serves as the deck on hand that YOU the player will have.
             return card
         return None
 
-
+class AIStrategy(Protocol): #This serves as a fimction that the AI uses in order to win/lose rounds
+    def choose_card(self, hand: List[Card], lead_suit: Optional[str]) -> Card:
+        ...
     
